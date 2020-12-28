@@ -1,3 +1,7 @@
+'''
+用于绘制结构化数据的曲线，不管是mmdetection，或是detectron2、yolo的loss都可以绘制
+'''
+
 import os
 import pandas as pd
 import numpy as np
