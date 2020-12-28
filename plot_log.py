@@ -1,5 +1,5 @@
 '''
-用于绘制结构化数据的曲线，不管是mmdetection，或是detectron2、yolo的loss都可以绘制
+用于绘制结构化数据的曲线，不管是mmdetection，或是detectron2、yolo的loss都可以绘制，需要自己定义分隔符（一般是逗号、空格、冒号等），以及表头自己写一下
 '''
 
 import os
