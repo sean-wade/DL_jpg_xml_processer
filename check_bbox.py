@@ -7,9 +7,9 @@ from PIL import Image
 import numpy as np
 from tqdm import tqdm
 
-xml_root = "/zhanghao/dataset/YW_new/VOCdevkit/VOC2007/Annotations"
+xml_root = "Annotations_reLabel_zh1228/"
 new_xml_root = "./_Annotations"
-image_root = "/zhanghao/dataset/YW_new/VOCdevkit/VOC2007/JPEGImages"
+image_root = "JPEGImages"
 
 #xml_name_list = sorted(os.listdir(xml_root))
 jpg_name_list = sorted(os.listdir(image_root))
@@ -66,6 +66,20 @@ def check_bbox():
         img = cv2.imread(image_path, flags=cv2.IMREAD_COLOR)
         h, w, _ = img.shape
         
+        size.find("width").text = str(w)
+        size.find("height").text = str(h)
+        
+        folder = root.find('folder')
+        filename = root.find('filename')
+        path = root.find('path')
+        
+        if path == None or folder == None or filename == None:
+            print("None path : ", image_path)
+        else:
+            folder.text = 'VOCdevkit'
+            filename.text = image_path[:-4]
+            path.text = image_path
+        
         for obj in root.findall("object"):
             bnd_box = obj.find("bndbox")
             bbox = [
@@ -94,8 +108,8 @@ def check_bbox():
                 bnd_box.find("ymax").text = str(y2)
                 print("    new x1, y1, x2, y2: ", x1, y1, x2, y2)
                 
-                size.find("width").text = str(w)
-                size.find("height").text = str(h)
+                #size.find("width").text = str(w)
+                #size.find("height").text = str(h)
                 
                 if x2 > w or y2 > h:
                     print("    still wrong ... remove it...")
